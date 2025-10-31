@@ -3,6 +3,7 @@
 import { useShallow } from 'zustand/shallow'
 import { useZipPreview, type FileData } from '../store/zip-store'
 import type React from 'react'
+import { Button } from './shared/button'
 
 export const FileList: React.FC = () => {
 	const [files, loading] = useZipPreview(
@@ -38,12 +39,13 @@ export const FileList: React.FC = () => {
 										className='w-full rounded-lg'
 									/>
 								)}
-								<button
+								<Button
+									variant='primary'
 									onClick={() => downloadFile(file.url, file.name)}
-									className='mt-2 w-full bg-[#2e7d31] text-white rounded-lg py-1 hover:bg-green-700 transition'
+									// className='mt-2 w-full bg-[#2e7d31] text-white rounded-lg py-1 hover:bg-green-700 transition'
 								>
 									Скачать
-								</button>
+								</Button>
 							</div>
 						))}
 					</div>

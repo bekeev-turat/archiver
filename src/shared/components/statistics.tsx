@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/shallow'
 import { useZipPreview } from '../store/zip-store'
 import type { FileData } from '../@types/file-data'
 import { cn } from '../lab/utils'
+import { Button } from './shared/button'
 
 export const Statistics = () => {
 	const [files, loading, clearFiles] = useZipPreview(
@@ -23,17 +24,15 @@ export const Statistics = () => {
 				</li>
 			</ul>
 
-			<button
+			<Button
+			variant='secondary'
 				onClick={clearFiles}
-				className={cn(
-					'mt-6 px-4 py-2 bg-[#e53835] text-white rounded-lg hover:bg-red-700',
-					{
-						'opacity-50 pointer-events-none': loading || files.length === 0,
-					},
-				)}
+				className={cn({
+					'opacity-50 pointer-events-none': loading || files.length === 0,
+				})}
 			>
 				Очистить
-			</button>
+			</Button>
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Button } from '../components/shared/button'
 
 export function NotFound() {
 	return (
@@ -10,13 +10,12 @@ export function NotFound() {
 				<p className='mt-5 text-[rgba(93,95,94,1)] font-montserrat text-base font-medium leading-5 tracking-[0%] text-center'>
 					Возможно, запрошенная страница временно недоступона или удалена
 				</p>
-				<Link
-					to='/'
-					className='mt-24 h-[45px] flex justify-between items-center py-[15px] px-[110px] rounded-md  bg-[rgba(250,213,73,1)]'
-				>
+				<Button className='mt-24' link='/'>
 					Перейти на главную
-				</Link>
+				</Button>
 			</div>
 		</div>
 	)
 }
+
+// className='mt-24 h-[45px] flex justify-between items-center py-[15px] px-[110px] rounded-md  bg-[rgba(250,213,73,1)]'
