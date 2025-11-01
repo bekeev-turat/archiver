@@ -21,15 +21,31 @@ export const FileUploader: React.FC = () => {
 	}
 
 	return (
-		<div className='flex flex-col items-center gap-4 p-6'>
-			<Button onClick={handleButtonClick}>Загрузить ZIP</Button>
-			<input
-				ref={inputRef}
-				type='file'
-				accept='.zip'
-				className='hidden'
-				onChange={handleChange}
-			/>
+		<div className='flex justify-between items-center'>
+			<div className='flex flex-col items-center gap-5 p-6'>
+				<h1 className='text-4xl font-bold text-center'>
+					Легкий просмотр ZIP-файлов
+				</h1>
+
+				<p className='text-2xl'>
+					Привет! Я Бекеев Турат, и я создаю удобные веб-инструменты. С этим
+					сервисом вы можете мгновенно открывать ZIP-архивы прямо в браузере,
+					просматривать файлы и скачивать только нужное. Всё просто и быстро,
+					без лишних установок.
+				</p>
+				<Button className='w-3xs' onClick={handleButtonClick}>
+					Загрузить ZIP
+				</Button>
+				<input
+					ref={inputRef}
+					type='file'
+					accept='.zip'
+					className='hidden'
+					onChange={handleChange}
+				/>
+			</div>
+
+			<img src='/splines.svg' alt='splines' />
 		</div>
 	)
 }

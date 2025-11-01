@@ -1,21 +1,16 @@
 @import 'tailwindcss';
 
+html {
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
 :root {
-	/* Primary */
-	--primary: #28cb8b;
-	--secondary: #263238;
-	--info: #2194f3;
-
-	/* Neutral */
-	--silver: #f5f7fa;
-	--white: #ffffff;
-	--black: #263238;
-
-	/* Action */
-	--warning: #fbc02d;
-	--error: #e53835;
-	--success: #2e7d31;
-
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
@@ -24,11 +19,4 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
 }

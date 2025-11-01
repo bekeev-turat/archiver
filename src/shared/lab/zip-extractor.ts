@@ -13,14 +13,15 @@ export async function extractZip(file: File): Promise<FileData[]> {
 
 		// Получаем имя файла без пути (последняя часть после "/")
 		const fileName = filePath.split('/').pop() || filePath
-
 		const blob = await zipFile.async('blob')
 		const url = URL.createObjectURL(blob)
+
 		const type = detectFileType(fileName)
 		const suspiciousReasons = await checkSuspicious(fileName, url)
 
 		files.push({
-			name: fileName, // теперь только имя, без пути
+			name: fileName,
+			filePath,
 			url,
 			type,
 			suspiciousReasons,
