@@ -3,8 +3,8 @@
 import { useShallow } from 'zustand/shallow'
 import { useZipPreview } from '../store/zip-store'
 // import type { FileData } from '../@types/file-data'
-import { cn } from '../lab/utils'
-import { Button } from './shared/button'
+import { cn } from '../utils/cn'
+import { Button } from './ui/button'
 
 export const Statistics = () => {
 	const [files, loading, clearFiles] = useZipPreview(
@@ -25,7 +25,7 @@ export const Statistics = () => {
 			</ul>
 
 			<Button
-			variant='secondary'
+				variant='secondary'
 				onClick={clearFiles}
 				className={cn({
 					'opacity-50 pointer-events-none': loading || files.length === 0,

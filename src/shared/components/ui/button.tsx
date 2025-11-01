@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
-import { cn } from '../../lab/utils'
+import { cn } from '../../utils/cn'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: 'primary' | 'secondary' | 'outline'

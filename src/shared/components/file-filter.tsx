@@ -1,8 +1,8 @@
 import { useShallow } from 'zustand/shallow'
 import { useFilters } from '../store/filters'
 import type { FileType } from '../@types/file-data'
-import { cn } from '../lab/utils'
-import { Skeleton } from './shared/skeleton'
+import { cn } from '../utils/cn'
+import { Skeleton } from './ui/skeleton'
 
 interface FileFilterType {
 	hasImage: boolean

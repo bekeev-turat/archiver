@@ -1,13 +1,17 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/shallow'
 import { useZipPreview } from '../store/zip-store'
-import { Button } from './shared/button'
-// todo исправить баг
+import { Button } from './ui/button'
+import { useNavigate } from 'react-router-dom'
+import { SplinesIcon } from '../assets/icon/splines'
 
 export const FileUploader: React.FC = () => {
-	const [getFiles] = useZipPreview(useShallow((state) => [state.getFiles]))
+	const navigate = useNavigate()
+	const [files, getFiles] = useZipPreview(
+		useShallow((state) => [state.files, state.getFiles]),
+	)
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -18,20 +22,27 @@ export const FileUploader: React.FC = () => {
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (file) getFiles(file)
+		navigate('archiver', { replace: true })
 	}
 
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.value = ''
+		}
+	}, [files])
+
 	return (
-		<div className='flex justify-between items-center'>
-			<div className='flex flex-col items-center gap-5 p-6'>
-				<h1 className='text-4xl font-bold text-center'>
+		<div className='flex flex-col lg:flex-row justify-between items-center '>
+			<div className='flex flex-col items-center gap-5 lg:w-11/12'>
+				<h1 className='text-3xl font-bold text-center'>
 					Легкий просмотр ZIP-файлов
 				</h1>
 
-				<p className='text-2xl'>
-					Привет! Я Бекеев Турат, и я создаю удобные веб-инструменты. С этим
-					сервисом вы можете мгновенно открывать ZIP-архивы прямо в браузере,
-					просматривать файлы и скачивать только нужное. Всё просто и быстро,
-					без лишних установок.
+				<p className='text-xl text-center'>
+					Привет! Я <span className='font-semibold'>Бекеев Турат</span>, и я
+					создаю удобные веб-инструменты. С этим сервисом вы можете мгновенно
+					открывать ZIP-архивы прямо в браузере, просматривать файлы и скачивать
+					только нужное. Всё просто и быстро, без лишних установок.
 				</p>
 				<Button className='w-3xs' onClick={handleButtonClick}>
 					Загрузить ZIP
@@ -45,7 +56,7 @@ export const FileUploader: React.FC = () => {
 				/>
 			</div>
 
-			<img src='/splines.svg' alt='splines' />
+			<SplinesIcon className='w-full' />
 		</div>
 	)
 }

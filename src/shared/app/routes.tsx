@@ -1,8 +1,10 @@
 import { lazy } from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import { Layout } from './layout'
 import { NotFound } from '../pages/not-found'
+import { About } from '../pages/about'
+import { Archiver } from '../pages/archiver'
 
 const Home = lazy(() => import('../pages/home'))
 
@@ -15,6 +17,14 @@ export const routes = createBrowserRouter([
 			{
 				path: '/',
 				element: <Home />,
+				children: [
+					{
+						index: true,
+						element: <Navigate to='about' replace />,
+					},
+					{ path: `about`, element: <About /> },
+					{ path: `archiver`, element: <Archiver /> },
+				],
 			},
 		],
 	},

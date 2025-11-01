@@ -2,25 +2,20 @@
 
 import { useFilteredFiles } from '../hooks/use-filtered-files'
 import { FileFilter } from './file-filter'
-import { FileCard } from './shared/file-card'
-import { Space } from './shared/space'
-import { FileTypes } from './shared/file-types'
-import { Button } from './shared/button'
-import { cn } from '../lab/utils'
-import { Skeleton } from './shared/skeleton'
+import { FileCard } from './ui/file-card'
+import { Space } from './ui/space'
+import { FileTypes } from './ui/file-types'
+import { Button } from './ui/button'
+import { cn } from '../utils/cn'
+import { Skeleton } from './ui/skeleton'
 import { useZipPreview } from '../store/zip-store'
+import { downloadFile } from '../utils/downloadFile'
+import { SuspiciousFilesAlert } from './suspicious-files-alert'
 
 export const FileListAnalyzer: React.FC = () => {
 	const stats = useZipPreview((state) => state.stats)
 
 	const { files, loading, clearFiles } = useFilteredFiles()
-
-	const downloadFile = (url: string, name: string) => {
-		const a = document.createElement('a')
-		a.href = url
-		a.download = name
-		a.click()
-	}
 
 	return (
 		<div>
@@ -50,10 +45,6 @@ export const FileListAnalyzer: React.FC = () => {
 				</>
 			)}
 
-			{/* {!loading && files.length === 0 && (
-				<p className='text-2xl text-center mx-32'>Файлы не найдены.</p>
-			)} */}
-
 			{files.length > 0 && (
 				<>
 					<FileTypes
@@ -62,24 +53,7 @@ export const FileListAnalyzer: React.FC = () => {
 						hasOther={stats.hasOther}
 						filesLength={files.length}
 					/>
-					{stats.suspiciousFiles.length > 0 ? (
-						<div className='bg-red-100 p-3 rounded-lg mt-2'>
-							<p className='font-semibold text-red-700'>
-								⚠️ Найдены подозрительные файлы:
-							</p>
-							<ul className='list-disc list-inside text-red-600'>
-								{stats.suspiciousFiles.map((f, i) => (
-									<li key={i}>
-										<b>{f.name}</b> — {f.suspiciousReasons?.join(', ')}
-									</li>
-								))}
-							</ul>
-						</div>
-					) : (
-						<p className='bg-green-100 p-5 rounded-lg text-green-600 font-medium mt-2'>
-							✅ Подозрительных файлов не найдено
-						</p>
-					)}
+					<SuspiciousFilesAlert suspicious={stats.suspiciousFiles} />
 					<Space h={20} />
 					<Button
 						variant='secondary'
