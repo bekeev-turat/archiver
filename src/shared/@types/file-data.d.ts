@@ -1,6 +1,8 @@
+export type FileType = 'image' | 'video' | 'other'
+
 export interface FileData {
 	name: string
 	url: string
-	type: 'image' | 'video' | 'other'
+	type: FileType
 	suspiciousReasons: string[]
 }
