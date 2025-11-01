@@ -4,16 +4,10 @@ import React, { useRef } from 'react'
 import { useShallow } from 'zustand/shallow'
 import { useZipPreview } from '../store/zip-store'
 import { Button } from './shared/button'
+// todo исправить баг
 
 export const FileUploader: React.FC = () => {
-	const [files, loading, getFiles, clearFiles] = useZipPreview(
-		useShallow((state) => [
-			state.files,
-			state.loading,
-			state.getFiles,
-			state.clearFiles,
-		]),
-	)
+	const [getFiles] = useZipPreview(useShallow((state) => [state.getFiles]))
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -25,8 +19,6 @@ export const FileUploader: React.FC = () => {
 		const file = e.target.files?.[0]
 		if (file) getFiles(file)
 	}
-
-	console.log(files.length, loading, getFiles, clearFiles)
 
 	return (
 		<div className='flex flex-col items-center gap-4 p-6'>

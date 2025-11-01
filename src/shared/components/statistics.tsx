@@ -2,7 +2,7 @@
 
 import { useShallow } from 'zustand/shallow'
 import { useZipPreview } from '../store/zip-store'
-import type { FileData } from '../@types/file-data'
+// import type { FileData } from '../@types/file-data'
 import { cn } from '../lab/utils'
 import { Button } from './shared/button'
 
@@ -18,10 +18,10 @@ export const Statistics = () => {
 					Количество <span className='w-full border-b border-dotted'></span>
 					{files?.length}
 				</li>
-				<li className='w-full flex items-center gap-1'>
+				{/* <li className='w-full flex items-center gap-1'>
 					Типы <span className='w-full border-b border-dotted'></span>
 					{checkFileTypes(files)}
-				</li>
+				</li> */}
 			</ul>
 
 			<Button
@@ -37,12 +37,12 @@ export const Statistics = () => {
 	)
 }
 
-function checkFileTypes(files: FileData[]) {
-	const hasImage = files.some((file) => file.type === 'image')
-	const hasVideo = files.some((file) => file.type === 'video')
+// function checkFileTypes(files: FileData[]) {
+// 	const hasImage = files.some((file) => file.type === 'image')
+// 	const hasVideo = files.some((file) => file.type === 'video')
 
-	if (hasImage && hasVideo) return 'image, video'
-	if (hasImage) return 'image'
-	if (hasVideo) return 'video'
-	return '[_]'
-}
+// 	if (hasImage && hasVideo) return 'image, video'
+// 	if (hasImage) return 'image'
+// 	if (hasVideo) return 'video'
+// 	return '[_]'
+// }

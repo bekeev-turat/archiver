@@ -12,11 +12,9 @@ export function Layout() {
 				console.error('Ошибка в компоненте:', error)
 			}}
 		>
-			<div className='headerWrapper'>
-				<Header />
-			</div>
+			<Header />
 
-			<div className='bg-white min-h-screen w-screen overflow-y-scroll relative'>
+			<div className='max-w-7xl mx-auto bg-white min-h-screen'>
 				<Outlet />
 			</div>
 		</ErrorBoundary>

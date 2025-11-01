@@ -26,11 +26,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-	max-width: 1280px;
-	margin: 0 auto;
-}
-
 .logo {
 	height: 6em;
 	padding: 1.5em;

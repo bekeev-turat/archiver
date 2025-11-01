@@ -1,16 +1,11 @@
-import JSZip from 'jszip'
 import { create } from 'zustand'
-
-export interface FileData {
-	name: string
-	url: string
-	type: 'image' | 'video'
-}
+import type { FileData } from '../@types/file-data'
+import { extractZip } from '../lab/zip-extractor'
 
 interface ZipStore {
-	files: FileData[] // <- changed
+	files: FileData[]
 	loading: boolean
-	getFiles: (file: File) => Promise<void> // <- указали параметр
+	getFiles: (file: File) => Promise<void>
 	clearFiles: () => void
 }
 
@@ -20,25 +15,7 @@ export const useZipPreview = create<ZipStore>((set) => ({
 	getFiles: async (file: File) => {
 		set({ loading: true })
 		try {
-			const zip = await JSZip.loadAsync(file)
-			const extractedFiles: FileData[] = []
-
-			for (const fileName of Object.keys(zip.files)) {
-				const zipFile = zip.files[fileName]
-				if (!zipFile.dir) {
-					const blob = await zipFile.async('blob')
-					const url = URL.createObjectURL(blob)
-
-					if (fileName.match(/\.(png|jpe?g|gif|webp)$/i)) {
-						extractedFiles.push({ name: fileName, url, type: 'image' })
-					} else if (fileName.match(/\.(mp4|webm|ogg)$/i)) {
-						extractedFiles.push({ name: fileName, url, type: 'video' })
-					} else {
-						// при желании — пропускать или добавлять другие типы
-					}
-				}
-			}
-
+			const extractedFiles = await extractZip(file)
 			set({ files: extractedFiles })
 		} catch (error) {
 			console.error('Ошибка при чтении архива:', error)
@@ -47,7 +24,6 @@ export const useZipPreview = create<ZipStore>((set) => ({
 		}
 	},
 	clearFiles: () => {
-		// ревокнуть URL-ы, если нужно
 		set((state) => {
 			state.files.forEach((f) => URL.revokeObjectURL(f.url))
 			return { files: [] }
