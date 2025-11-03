@@ -1,37 +1,65 @@
-// 'use client'
+'use client'
 
-// import { useFilteredFiles } from '../hooks/use-filtered-files'
-// import { FileFilter } from './file-filter'
-// import { FileCard } from './shared/file-card'
-// import { Space } from './shared/space'
+import { useState, useMemo } from 'react'
+import { FileCard } from './ui/file-card'
+import { Skeleton } from './ui/skeleton'
+import { downloadFile } from '../utils/downloadFile'
+import { Pagination } from './ui/pagination'
+import type { FileData } from '../@types/file-data'
 
-// export const FileList: React.FC = () => {
-// 	const { files, loading } = useFilteredFiles()
+interface FileListType {
+	files: FileData[]
+	loading: boolean
+	limit?: number
+}
+export const FileList = ({ files, loading, limit = 12 }: FileListType) => {
+	const [page, setPage] = useState(1)
+	const totalPages = Math.ceil(files.length / limit)
 
-// 	const downloadFile = (url: string, name: string) => {
-// 		const a = document.createElement('a')
-// 		a.href = url
-// 		a.download = name
-// 		a.click()
-// 	}
+	const paginatedFiles = useMemo(() => {
+		const start = (page - 1) * limit
+		return files.slice(start, start + limit)
+	}, [files, page])
 
-// 	return (
-// 		<>
-// 			<FileFilter />
-// 			<Space h={50} />
-// 			{loading && <p>📦 Распаковка архива...</p>}
+	const handlePrev = () => setPage((p) => Math.max(p - 1, 1))
+	const handleNext = () => setPage((p) => Math.min(p + 1, totalPages))
 
-// 			{!loading && files.length === 0 && (
-// 				<p className='text-2xl text-center mx-32'>Файлы не найдены по выбранным фильтрам.</p>
-// 			)}
+	useMemo(() => {
+		setPage(1)
+	}, [files])
 
-// 			{files.length > 0 && (
-// 				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full'>
-// 					{files.map((file) => (
-// 						<FileCard key={file.name} file={file} onDownload={downloadFile} />
-// 					))}
-// 				</div>
-// 			)}
-// 		</>
-// 	)
-// }
+	return (
+		<div>
+			{loading && (
+				<>
+					<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4'></div>
+				</>
+			)}
+
+			{files.length > 0 && (
+				<>
+					<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4'>
+						{loading
+							? [...Array(8)].map((_, i) => (
+									<Skeleton
+										key={i}
+										className='h-96 w-[300px] mb-4 rounded-lg'
+									/>
+							  ))
+							: paginatedFiles.map((file, i) => (
+									<FileCard key={i} file={file} onDownload={downloadFile} />
+							  ))}
+					</div>
+
+					{/* ✅ Используем компонент пагинации */}
+					<Pagination
+						page={page}
+						totalPages={totalPages}
+						onPrev={handlePrev}
+						onNext={handleNext}
+					/>
+				</>
+			)}
+		</div>
+	)
+}

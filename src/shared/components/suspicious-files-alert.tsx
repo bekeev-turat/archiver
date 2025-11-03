@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { FileData } from '../../@types/file-data'
+import type { FileData } from '../@types/file-data'
 
 export const SuspiciousFilesAlert = ({
 	suspicious,

@@ -22,6 +22,7 @@ export async function extractZip(file: File): Promise<FileData[]> {
 		files.push({
 			name: fileName,
 			filePath,
+			size: blob.size,
 			url,
 			type,
 			suspiciousReasons,
