@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useZipPreview } from '../store/zip-store'
+import { useZipStore } from '../store/zip/zip.store'
 import { useShallow } from 'zustand/shallow'
 import { useMemo } from 'react'
 import { suspiciousExtensions } from '../lab/suspicious-check'
@@ -25,7 +25,7 @@ const textExtensions = [
 
 export default function ViewFile() {
 	const { id } = useParams<{ id: string }>()
-	const files = useZipPreview(useShallow((state) => state.files))
+	const files = useZipStore(useShallow((state) => state.files))
 
 	const file = files.find((file) => file.id === Number(id))
 

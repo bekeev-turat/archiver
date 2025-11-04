@@ -1,17 +1,14 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { useShallow } from 'zustand/shallow'
-import { useZipPreview } from '../store/zip-store'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
 import { SplinesIcon } from '../assets/icon/splines'
+import { useZipStore } from '../store/zip/zip.store'
 
 export const FileUploader: React.FC = () => {
 	const navigate = useNavigate()
-	const [files, getFiles] = useZipPreview(
-		useShallow((state) => [state.files, state.getFiles]),
-	)
+	const { files, loadZip } = useZipStore()
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -21,7 +18,7 @@ export const FileUploader: React.FC = () => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
-		if (file) getFiles(file)
+		if (file) loadZip(file)
 		navigate('archiver', { replace: true })
 	}
 

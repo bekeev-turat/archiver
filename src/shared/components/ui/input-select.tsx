@@ -47,7 +47,7 @@ export function InputSelect({
 			<div
 				onClick={toggleOpen}
 				className={cn(
-					'flex justify-between rounded-md cursor-pointer transition',
+					'flex justify-between rounded-md cursor-pointer transition text-center',
 					{ 'bg-white': isOpen },
 					colorStyles[variant],
 				)}

@@ -1,29 +1,53 @@
-import { useShallow } from 'zustand/shallow'
-import { useZipPreview } from '../store/zip-store'
-import { useFilters } from '../store/filters-store'
-import type { FileData } from '../@types/file-data'
+import { useZipStore } from '../store/zip/zip.store'
 import { useEffect, useMemo } from 'react'
+import { useAnalyzerStore } from '../store/analyzer/file-analyzer.store'
+import { useFiltersStore } from '../store/filters/filters.store'
+import { sortStrategies } from '../lab/sort-strategies'
 
-export const useFilteredFiles = (): {
-	files: FileData[]
-	loading: boolean
-	clearFiles: () => void
-	setFilters: () => void
-} => {
-	const [files, loading, clearFiles] = useZipPreview(
-		useShallow((state) => [state.files, state.loading, state.clearFiles]),
-	)
-	const [filteredFiles, applyFilters] = useFilters(
-		useShallow((state) => [state.filteredFiles, state.applyFilters]),
-	)
+export const useFilteredFiles = () => {
+	const { files, loading, clearFiles } = useZipStore()
+	const { stats, analyze, resetStats } = useAnalyzerStore()
+	const { type, suspicious, sort } = useFiltersStore()
 
-	const setFilters = useMemo(() => {
-		return () => applyFilters(files)
-	}, [files, applyFilters])
-
+	// анализируем при изменении списка файлов
 	useEffect(() => {
-		setFilters()
+		if (files.length > 0) {
+			console.log('5')
+
+			// если analyze синхронный — ок, если асинхронный — можно await/then
+			analyze(files)
+		} else {
+			console.log('d')
+
+			resetStats()
+		}
 	}, [files])
 
-	return { files: filteredFiles, clearFiles, loading, setFilters }
+	// фильтрация и сортировка
+	const filteredFiles = useMemo(() => {
+		let result = files
+
+		// фильтр по типу
+		if (type !== 'all') {
+			result = result.filter((f) => f.type === type)
+		}
+
+		// фильтр по suspicious
+		if (suspicious === 'hasSuspicious') {
+			result = result.filter((f) => f.suspiciousReasons?.length)
+		} else if (suspicious === 'noSuspicious') {
+			result = result.filter((f) => !f.suspiciousReasons?.length)
+		}
+
+		result.sort(sortStrategies[sort])
+
+		return result
+	}, [files, type, suspicious, sort])
+
+	return {
+		files: filteredFiles,
+		stats,
+		loading,
+		clearFiles,
+	}
 }

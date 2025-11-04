@@ -1,29 +1,29 @@
 import { useShallow } from 'zustand/shallow'
-import { useFilters } from '../../store/filters-store'
 import { InputSelect } from '../ui/input-select'
-import type { SortFilter } from '../../@types/filter'
+import { useFiltersStore } from '../../store/filters/filters.store'
+import type { SortFilter } from '../../store/filters/filters.types'
+
+const sortOptions: Record<string, SortFilter> = {
+	'Имя по возрастанию': 'nameAsc',
+	'Имя по убыванию': 'nameDesc',
+	'Размер по возрастанию': 'sizeAsc',
+	'Размер по убыванию': 'sizeDesc',
+}
 
 export const SortFilterSelector = () => {
-	const [sortFilter, setSortFilter] = useFilters(
-		useShallow((state) => [state.sortFilter, state.setSortFilter]),
+	const [sort, setSort] = useFiltersStore(
+		useShallow((state) => [state.sort, state.setSort]),
 	)
 
-	const sortOptions: Record<string, SortFilter> = {
-		'Имя по возрастанию': 'nameAsc',
-		'Имя по убыванию': 'nameDesc',
-		'Размер по возрастанию': 'sizeAsc',
-		'Размер по убыванию': 'sizeDesc',
-	}
-
 	return (
-		<div className='w-96 flex gap-1 items-center'>
+		<div className='w-full flex gap-1 items-center'>
 			Сортировать{' '}
 			<InputSelect
 				variant='text'
 				options={Object.keys(sortOptions)}
-				onChange={(value) => setSortFilter(sortOptions[value])}
+				onChange={(value) => setSort(sortOptions[value])}
 				defaultValue={Object.keys(sortOptions).find(
-					(key) => sortOptions[key] === sortFilter,
+					(key) => sortOptions[key] === sort,
 				)}
 			/>
 		</div>

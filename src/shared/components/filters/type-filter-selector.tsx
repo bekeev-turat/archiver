@@ -1,5 +1,5 @@
 import { useShallow } from 'zustand/shallow'
-import { useFilters } from '../../store/filters-store'
+import { useFiltersStore } from '../../store/filters/filters.store'
 import type { FileStats } from '../../lab/file-analyzer'
 import { Skeleton } from '../ui/skeleton'
 import { cn } from '../../utils/cn'
@@ -12,8 +12,8 @@ interface Props {
 
 export const TypeFilterSelector = ({ stats, loading }: Props) => {
 	const { hasImage, hasVideo, hasText, hasOther } = stats
-	const [typeFilter, setTypeFilter] = useFilters(
-		useShallow((state) => [state.typeFilter, state.setTypeFilter]),
+	const [typeFilter, setTypeFilter] = useFiltersStore(
+		useShallow((state) => [state.type, state.setType]),
 	)
 
 	const fileTypes = [

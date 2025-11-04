@@ -1,7 +1,7 @@
 import JSZip from 'jszip'
 import { detectFileType } from './file-types'
 import { checkSuspicious } from './suspicious-check'
-import type { FileData } from '../@types/file-data'
+import type { FileData } from '../store/zip/zip.types'
 
 export async function extractZip(file: File): Promise<FileData[]> {
 	const zip = await JSZip.loadAsync(file)

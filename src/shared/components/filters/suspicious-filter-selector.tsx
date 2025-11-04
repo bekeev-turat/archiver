@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/shallow'
-import { useFilters, type SuspiciousFilter } from '../../store/filters-store'
 import type { FileStats } from '../../lab/file-analyzer'
+import { useFiltersStore } from '../../store/filters/filters.store'
+import type { SuspiciousFilter } from '../../store/filters/filters.types'
 import { InputSelect } from '../ui/input-select'
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 
 export const SuspiciousFilterSelector = ({ stats }: Props) => {
 	const { suspiciousFiles } = stats
-	const [suspiciousFilter, setSuspiciousFilter] = useFilters(
-		useShallow((state) => [state.suspiciousFilter, state.setSuspiciousFilter]),
+	const [suspiciousFilter, setSuspiciousFilter] = useFiltersStore(
+		useShallow((state) => [state.suspicious, state.setSuspicious]),
 	)
 
 	if (suspiciousFiles.length === 0) return null
@@ -22,7 +23,7 @@ export const SuspiciousFilterSelector = ({ stats }: Props) => {
 	}
 
 	return (
-		<div className='w-96 flex gap-1 items-center'>
+		<div className='w-full flex gap-1 items-center'>
 			Показывать{' '}
 			<InputSelect
 				variant='text'

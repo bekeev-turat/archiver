@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import type { FileData } from '../@types/file-data'
 import { BiError } from 'react-icons/bi'
 import { CiCircleCheck } from 'react-icons/ci'
+import type { FileData } from '../store/zip/zip.types'
 
 export const SuspiciousFilesAlert = ({
 	suspicious,

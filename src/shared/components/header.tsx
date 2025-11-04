@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useZipPreview } from '../store/zip-store'
+import { useZipStore } from '../store/zip/zip.store'
 export const Header = () => {
 	const location = useLocation()
-	const files = useZipPreview((state) => state.files)
+	const files = useZipStore((state) => state.files)
 
 	return (
 		<header className='flex justify-between items-center max-w-7xl mx-auto py-5 px-2'>
