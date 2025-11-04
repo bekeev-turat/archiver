@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/shallow'
-import { useFilters, type SortFilter } from '../../store/filters-store'
+import { useFilters } from '../../store/filters-store'
 import { InputSelect } from '../ui/input-select'
+import type { SortFilter } from '../../@types/filter'
 
 export const SortFilterSelector = () => {
 	const [sortFilter, setSortFilter] = useFilters(

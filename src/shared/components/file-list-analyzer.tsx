@@ -27,6 +27,7 @@ export const FileListAnalyzer: React.FC = () => {
 				<FileTypes
 					hasImage={stats.hasImage}
 					hasVideo={stats.hasVideo}
+					hasText={stats.hasText}
 					hasOther={stats.hasOther}
 					filesLength={files.length}
 				/>

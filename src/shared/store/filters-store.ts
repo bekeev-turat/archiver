@@ -1,9 +1,8 @@
 import { create } from 'zustand'
 import type { FileData } from '../@types/file-data'
+import type { SortFilter, SuspiciousFilter, TypeFilter } from '../@types/filter'
 
-export type TypeFilter = 'all' | 'image' | 'video' | 'other'
-export type SuspiciousFilter = 'all' | 'hasSuspicious' | 'noSuspicious'
-export type SortFilter = 'sizeAsc' | 'sizeDesc' | 'nameAsc' | 'nameDesc'
+
 
 interface FilterStore {
 	filteredFiles: FileData[]

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import type { FileData } from '../@types/file-data'
+import { BiError } from 'react-icons/bi'
+import { CiCircleCheck } from 'react-icons/ci'
 
 export const SuspiciousFilesAlert = ({
 	suspicious,
@@ -15,8 +17,8 @@ export const SuspiciousFilesAlert = ({
 		<>
 			{suspicious.length > 0 ? (
 				<div className='bg-red-100 p-3 rounded-lg mt-2'>
-					<p className='font-semibold text-red-700'>
-						⚠️ Найдены подозрительные файлы:
+					<p className='font-semibold text-red-700 flex items-center gap-1'>
+						<BiError /> Найдены подозрительные файлы:
 					</p>
 					<ul className='list-disc list-inside text-red-600'>
 						{list.map((f, i) => (
@@ -34,8 +36,8 @@ export const SuspiciousFilesAlert = ({
 					)}
 				</div>
 			) : (
-				<p className='bg-green-100 p-5 rounded-lg text-green-600 font-medium mt-2'>
-					✅ Подозрительных файлов не найдено
+				<p className='bg-green-100 p-5 rounded-lg text-green-600 font-medium mt-2 flex items-center gap-1'>
+					<CiCircleCheck /> Подозрительных файлов не найдено
 				</p>
 			)}
 		</>

@@ -1,7 +1,20 @@
-export type FileType = 'image' | 'video' | 'other'
+import type { FileType } from '../@types/file-data'
 
 export function detectFileType(fileName: string): FileType {
-	if (fileName.match(/\.(png|jpe?g|gif|webp)$/i)) return 'image'
-	if (fileName.match(/\.(mp4|webm|ogg)$/i)) return 'video'
+	// картинки
+	if (/\.(png|jpe?g|gif|webp)$/i.test(fileName)) return 'image'
+
+	// видео
+	if (/\.(mp4|webm|ogg)$/i.test(fileName)) return 'video'
+
+	// текстовые файлы
+	if (
+		/\.(txt|md|json|js|ts|tsx|jsx|html|css|xml|yml|yaml|py|c|cpp|java)$/i.test(
+			fileName,
+		)
+	)
+		return 'text'
+
+	// всё остальное
 	return 'other'
 }

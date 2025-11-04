@@ -1,3 +1,4 @@
+import { FaDownload } from 'react-icons/fa'
 import type { FileData } from '../../@types/file-data'
 import { Button } from './button'
 
@@ -22,18 +23,28 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 				)}
 
 				<p>Тип: {file.type}</p>
+				<p>Размер: {(file.size / 1024).toFixed(2)} кб</p>
 			</div>
-
-			{file.type !== 'other' &&
-				(file.type === 'image' ? (
-					<img src={file.url} alt={file.name} className='w-full rounded-lg' />
-				) : (
-					<video src={file.url} controls className='w-full rounded-lg' />
-				))}
-
-			<Button variant='primary' onClick={() => onDownload(file.url, file.name)}>
-				Скачать
-			</Button>
+			{file.type === 'image' && (
+				<img src={file.url} alt={file.name} className='w-full rounded-lg' />
+			)}
+			{file.type === 'video' && (
+				<video src={file.url} controls className='w-full rounded-lg' />
+			)}
+			<div className='flex gap-2'>
+				{file.type !== 'other' && (
+					<Button variant='outline' link={`/view/${file.id}`}>
+						Просмотр
+					</Button>
+				)}
+				<Button
+					variant='primary'
+					onClick={() => onDownload(file.url, file.name)}
+					className='py-0'
+				>
+					<FaDownload />
+				</Button>
+			</div>
 		</div>
 	)
 }

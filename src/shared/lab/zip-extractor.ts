@@ -6,12 +6,13 @@ import type { FileData } from '../@types/file-data'
 export async function extractZip(file: File): Promise<FileData[]> {
 	const zip = await JSZip.loadAsync(file)
 	const files: FileData[] = []
+	const zipEntries = Object.keys(zip.files)
 
-	for (const filePath of Object.keys(zip.files)) {
+	for (let i = 0; i < zipEntries.length; i++) {
+		const filePath = zipEntries[i]
 		const zipFile = zip.files[filePath]
 		if (zipFile.dir) continue
 
-		// Получаем имя файла без пути (последняя часть после "/")
 		const fileName = filePath.split('/').pop() || filePath
 		const blob = await zipFile.async('blob')
 		const url = URL.createObjectURL(blob)
@@ -19,13 +20,22 @@ export async function extractZip(file: File): Promise<FileData[]> {
 		const type = detectFileType(fileName)
 		const suspiciousReasons = await checkSuspicious(fileName, url)
 
+		// Если это текстовый файл — извлекаем содержимое как текст
+		let content: string | null = null
+		if (type === 'text') {
+			content = await zipFile.async('text')
+		}
+
 		files.push({
+			id: i,
 			name: fileName,
 			filePath,
 			size: blob.size,
 			url,
 			type,
 			suspiciousReasons,
+			blob,
+			content,
 		})
 	}
 

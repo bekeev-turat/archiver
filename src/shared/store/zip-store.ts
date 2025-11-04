@@ -14,6 +14,7 @@ interface ZipStore {
 const BASE_STATS = {
 	hasImage: false,
 	hasVideo: false,
+	hasText: false,
 	hasOther: false,
 	suspiciousFiles: [],
 }

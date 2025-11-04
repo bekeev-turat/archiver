@@ -1,13 +1,16 @@
 import { FaImage, FaVideo, FaFileAlt, FaTimes } from 'react-icons/fa'
+import { IoText } from 'react-icons/io5'
 
 export function FileTypes({
 	hasImage,
 	hasVideo,
+	hasText,
 	hasOther,
 	filesLength,
 }: {
 	hasImage: boolean
 	hasVideo: boolean
+	hasText: boolean
 	hasOther: boolean
 	filesLength: number
 }) {
@@ -23,6 +26,11 @@ export function FileTypes({
 				{hasVideo && (
 					<span className='flex items-center gap-1'>
 						<FaVideo /> видео
+					</span>
+				)}
+				{hasText && (
+					<span className='flex items-center gap-1'>
+						<IoText /> текст
 					</span>
 				)}
 				{hasOther && (

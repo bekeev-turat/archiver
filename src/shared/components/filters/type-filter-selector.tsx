@@ -1,8 +1,9 @@
 import { useShallow } from 'zustand/shallow'
-import { useFilters, type TypeFilter } from '../../store/filters-store'
+import { useFilters } from '../../store/filters-store'
 import type { FileStats } from '../../lab/file-analyzer'
 import { Skeleton } from '../ui/skeleton'
 import { cn } from '../../utils/cn'
+import type { TypeFilter } from '../../@types/filter'
 
 interface Props {
 	stats: FileStats
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export const TypeFilterSelector = ({ stats, loading }: Props) => {
-	const { hasImage, hasVideo, hasOther } = stats
+	const { hasImage, hasVideo, hasText, hasOther } = stats
 	const [typeFilter, setTypeFilter] = useFilters(
 		useShallow((state) => [state.typeFilter, state.setTypeFilter]),
 	)
@@ -20,12 +21,16 @@ export const TypeFilterSelector = ({ stats, loading }: Props) => {
 			hasType:
 				(hasImage && hasVideo) ||
 				(hasVideo && hasOther) ||
-				(hasImage && hasOther),
+				(hasImage && hasOther) ||
+				(hasImage && hasText) ||
+				(hasVideo && hasText) ||
+				(hasText && hasOther),
 			label: 'Все',
 			value: 'all',
 		},
 		{ hasType: hasImage, label: 'Изображения', value: 'image' },
 		{ hasType: hasVideo, label: 'Видео', value: 'video' },
+		{ hasType: hasText, label: 'Текст', value: 'text' },
 		{ hasType: hasOther, label: 'Другие', value: 'other' },
 	]
 

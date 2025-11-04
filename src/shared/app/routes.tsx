@@ -7,6 +7,7 @@ import { About } from '../pages/about'
 import { Archiver } from '../pages/archiver'
 
 const Home = lazy(() => import('../pages/home'))
+const ViewFile = lazy(() => import('../pages/view-file'))
 
 export const routes = createBrowserRouter([
 	{
@@ -22,10 +23,11 @@ export const routes = createBrowserRouter([
 						index: true,
 						element: <Navigate to='about' replace />,
 					},
-					{ path: `about`, element: <About /> },
-					{ path: `archiver`, element: <Archiver /> },
+					{ path: `/about`, element: <About /> },
+					{ path: `/archiver`, element: <Archiver /> },
 				],
 			},
+			{ path: '/view/:id', element: <ViewFile /> },
 		],
 	},
 ])

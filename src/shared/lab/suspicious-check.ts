@@ -1,4 +1,4 @@
-const suspiciousExtensions = [
+export const suspiciousExtensions = [
 	'.exe',
 	'.dll',
 	'.bat',
