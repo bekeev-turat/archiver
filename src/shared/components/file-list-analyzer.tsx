@@ -1,6 +1,3 @@
-'use client'
-
-import { FileFilter } from './file-filter'
 import { Space } from './ui/space'
 import { Button } from './ui/button'
 import { cn } from '../lab/utils'
@@ -8,14 +5,32 @@ import { Skeleton } from './ui/skeleton'
 import { useFilteredFiles } from '../hooks/use-filtered-files'
 import { SuspiciousFilesAlert } from './suspicious-files-alert'
 import { FileList } from './file-list'
+import { FileFilter } from './filters'
 
 export const FileListAnalyzer: React.FC = () => {
-	const { files, loading, clearFiles, stats, page, setPage } =
-		useFilteredFiles()
+	const {
+		files,
+		loading,
+		clearFiles,
+		stats,
+		page,
+		setPage,
+		suspicious,
+		setSuspicious,
+		sort,
+		setSort,
+	} = useFilteredFiles()
 
 	return (
 		<div className='mb-10'>
-			<FileFilter stats={stats} loading={loading} />
+			<FileFilter
+				suspicious={suspicious}
+				setSuspicious={setSuspicious}
+				sort={sort}
+				setSort={setSort}
+				stats={stats}
+				loading={loading}
+			/>
 			<Space h={30} />
 
 			{loading ? (

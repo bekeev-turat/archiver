@@ -10,6 +10,8 @@ export const Header = () => {
 				<img className='w-9 h-9' src='/file_archive.svg' alt='logo' /> Archiver
 			</div>
 
+			
+
 			<div className='flex gap-3 text-xl'>
 				{files.length > 0 && location.pathname !== '/archiver' && (
 					<Link rel='stylesheet' to='/archiver'>

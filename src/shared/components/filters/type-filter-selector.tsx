@@ -1,9 +1,9 @@
 import { useShallow } from 'zustand/shallow'
 import { useFiltersStore } from '../../store/filters/filters.store'
-import type { FileStats } from '../../lab/file-analyzer'
 import { Skeleton } from '../ui/skeleton'
 import { cn } from '../../lab/utils'
-import type { TypeFilter } from '../../@types/filter'
+import type { FileStats } from '@/shared/store/analyzer/file-analyzer.type'
+import type { TypeFilter } from '@/shared/store/filters/filters.types'
 
 interface Props {
 	stats: FileStats

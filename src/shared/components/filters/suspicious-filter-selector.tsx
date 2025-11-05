@@ -1,38 +1,52 @@
-import { useShallow } from 'zustand/shallow'
-import type { FileStats } from '../../lab/file-analyzer'
-import { useFiltersStore } from '../../store/filters/filters.store'
 import type { SuspiciousFilter } from '../../store/filters/filters.types'
-import { InputSelect } from '../ui/input-select'
+import {
+	MenubarCheckboxItem,
+	MenubarSub,
+	MenubarSubContent,
+	MenubarSubTrigger,
+} from '../ui/menubar'
+import type { FileData } from '@/shared/store/zip/zip.types'
+import { suspiciousOptions } from '@/shared/constants/filters'
 
 interface Props {
-	stats: FileStats
+	suspiciousFiles: FileData[]
+	suspiciousFilter: SuspiciousFilter[]
+	setSuspiciousFilter: (
+		value:
+			| SuspiciousFilter[]
+			| ((prev: SuspiciousFilter[]) => SuspiciousFilter[]),
+	) => void
 }
 
-export const SuspiciousFilterSelector = ({ stats }: Props) => {
-	const { suspiciousFiles } = stats
-	const [suspiciousFilter, setSuspiciousFilter] = useFiltersStore(
-		useShallow((state) => [state.suspicious, state.setSuspicious]),
-	)
-
+export const SuspiciousFilterSelector = ({
+	suspiciousFiles,
+	suspiciousFilter,
+	setSuspiciousFilter,
+}: Props) => {
 	if (suspiciousFiles.length === 0) return null
 
-	const suspiciousOptions: Record<string, SuspiciousFilter> = {
-		все: 'all',
-		'только подозрительные файлы': 'hasSuspicious',
-		'только не подазрительные файлы': 'noSuspicious',
+	const handleSuspiciousChange = (key: SuspiciousFilter) => {
+		setSuspiciousFilter((prev) =>
+			prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key],
+		)
 	}
 
 	return (
-		<div className='w-full flex gap-1 items-center'>
-			Показывать{' '}
-			<InputSelect
-				variant='text'
-				options={Object.keys(suspiciousOptions)}
-				onChange={(value) => setSuspiciousFilter(suspiciousOptions[value])}
-				defaultValue={Object.keys(suspiciousOptions).find(
-					(key) => suspiciousOptions[key] === suspiciousFilter,
-				)}
-			/>
-		</div>
+		<MenubarSub>
+			<MenubarSubTrigger>Показывать</MenubarSubTrigger>
+			<MenubarSubContent>
+				{Object.entries(suspiciousOptions).map(([key, label]) => (
+					<MenubarCheckboxItem
+						key={key}
+						checked={suspiciousFilter.includes(key as SuspiciousFilter)}
+						onCheckedChange={() =>
+							handleSuspiciousChange(key as SuspiciousFilter)
+						}
+					>
+						{label}
+					</MenubarCheckboxItem>
+				))}
+			</MenubarSubContent>
+		</MenubarSub>
 	)
 }

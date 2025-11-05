@@ -7,7 +7,8 @@ import { sortStrategies } from '../lab/sort-strategies'
 export const useFilteredFiles = () => {
 	const { files, loading, clearFiles } = useZipStore()
 	const { stats, analyze, resetStats } = useAnalyzerStore()
-	const { type, suspicious, sort, page, setPage } = useFiltersStore()
+	const { type, suspicious, setSuspicious, sort, setSort, page, setPage } =
+		useFiltersStore()
 
 	useEffect(() => {
 		if (files.length > 0) {
@@ -24,10 +25,17 @@ export const useFilteredFiles = () => {
 			result = result.filter((f) => f.type === type)
 		}
 
-		if (suspicious === 'hasSuspicious') {
-			result = result.filter((f) => f.suspiciousReasons?.length)
-		} else if (suspicious === 'noSuspicious') {
-			result = result.filter((f) => !f.suspiciousReasons?.length)
+		if (Array.isArray(suspicious) && suspicious.length > 0) {
+			result = result.filter((f) => {
+				const has = f.suspiciousReasons?.length > 0
+				// Если выбран фильтр "hasSuspicious", оставляем файлы с подозрениями
+				// Если выбран фильтр "noSuspicious", оставляем файлы без подозрений
+				// Если выбран оба, оставляем все
+				return (
+					(suspicious.includes('hasSuspicious') && has) ||
+					(suspicious.includes('noSuspicious') && !has)
+				)
+			})
 		}
 
 		result.sort(sortStrategies[sort])
@@ -43,5 +51,9 @@ export const useFilteredFiles = () => {
 		clearFiles,
 		page,
 		setPage,
+		suspicious,
+		setSuspicious,
+		sort,
+		setSort,
 	}
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useState } from 'react'
 import { useClickOutside } from '../../hooks/use-click-outside'
 import { cn } from '../../lab/utils'

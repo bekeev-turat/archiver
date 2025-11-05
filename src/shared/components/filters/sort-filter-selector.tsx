@@ -1,31 +1,48 @@
-import { useShallow } from 'zustand/shallow'
-import { InputSelect } from '../ui/input-select'
-import { useFiltersStore } from '../../store/filters/filters.store'
+import { useSortFilter } from '@/shared/hooks/use-sort-filter'
 import type { SortFilter } from '../../store/filters/filters.types'
+import {
+	MenubarSeparator,
+	MenubarRadioGroup,
+	MenubarRadioItem,
+	MenubarSub,
+	MenubarSubTrigger,
+	MenubarSubContent,
+} from '@/shared/components/ui/menubar'
+import { sortOptions } from '@/shared/constants/sort'
 
-const sortOptions: Record<string, SortFilter> = {
-	'Имя по возрастанию': 'nameAsc',
-	'Имя по убыванию': 'nameDesc',
-	'Размер по возрастанию': 'sizeAsc',
-	'Размер по убыванию': 'sizeDesc',
+interface SortFilterSelectorProps {
+	sort: SortFilter
+	setSort: (value: SortFilter) => void
 }
 
-export const SortFilterSelector = () => {
-	const [sort, setSort] = useFiltersStore(
-		useShallow((state) => [state.sort, state.setSort]),
-	)
-
+export const SortFilterSelector = ({
+	sort,
+	setSort,
+}: SortFilterSelectorProps) => {
+	const { field, direction, handleFieldChange, handleDirectionChange } =
+		useSortFilter(sort, setSort)
 	return (
-		<div className='w-full flex gap-1 items-center'>
-			Сортировать{' '}
-			<InputSelect
-				variant='text'
-				options={Object.keys(sortOptions)}
-				onChange={(value) => setSort(sortOptions[value])}
-				defaultValue={Object.keys(sortOptions).find(
-					(key) => sortOptions[key] === sort,
-				)}
-			/>
-		</div>
+		<MenubarSub>
+			<MenubarSubTrigger>Сортировать</MenubarSubTrigger>
+			<MenubarSubContent>
+				<MenubarRadioGroup value={field} onValueChange={handleFieldChange}>
+					{Object.entries(sortOptions).map(([key, label]) => (
+						<MenubarRadioItem key={key} value={key}>
+							{label}
+						</MenubarRadioItem>
+					))}
+				</MenubarRadioGroup>
+
+				<MenubarSeparator />
+
+				<MenubarRadioGroup
+					value={direction}
+					onValueChange={handleDirectionChange}
+				>
+					<MenubarRadioItem value='Asc'>По возрастанию</MenubarRadioItem>
+					<MenubarRadioItem value='Desc'>По убыванию</MenubarRadioItem>
+				</MenubarRadioGroup>
+			</MenubarSubContent>
+		</MenubarSub>
 	)
 }

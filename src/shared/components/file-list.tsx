@@ -19,7 +19,7 @@ export const FileList = ({
 	page,
 	setPage,
 }: FileListProps) => {
-	const totalPages = Math.ceil(files.length / limit)
+	const totalPages = useMemo(() => Math.ceil(files.length / limit), [files])
 
 	const paginatedFiles = useMemo(() => {
 		const start = (page - 1) * limit
