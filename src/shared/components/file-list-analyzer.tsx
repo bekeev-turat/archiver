@@ -3,14 +3,15 @@
 import { FileFilter } from './file-filter'
 import { Space } from './ui/space'
 import { Button } from './ui/button'
-import { cn } from '../utils/cn'
+import { cn } from '../lab/utils'
 import { Skeleton } from './ui/skeleton'
 import { useFilteredFiles } from '../hooks/use-filtered-files'
 import { SuspiciousFilesAlert } from './suspicious-files-alert'
 import { FileList } from './file-list'
 
 export const FileListAnalyzer: React.FC = () => {
-	const { files, loading, clearFiles, stats } = useFilteredFiles()
+	const { files, loading, clearFiles, stats, page, setPage } =
+		useFilteredFiles()
 
 	return (
 		<div className='mb-10'>
@@ -35,7 +36,13 @@ export const FileListAnalyzer: React.FC = () => {
 
 			{files.length > 0 && (
 				<>
-					<FileList files={files} loading={loading} limit={20} />
+					<FileList
+						page={page}
+						setPage={setPage}
+						files={files}
+						loading={loading}
+						limit={20}
+					/>
 				</>
 			)}
 		</div>

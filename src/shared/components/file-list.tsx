@@ -1,64 +1,47 @@
-'use client'
+import type { FileData } from '@/shared/store/zip/zip.types'
+import { useMemo } from 'react'
+import { FileGrid } from './file-grid'
+import { downloadFile } from '@/shared/utils/downloadFile'
+import { SmartPagination } from './smart-pagination'
 
-import { useState, useMemo } from 'react'
-import { FileCard } from './ui/file-card'
-import { Skeleton } from './ui/skeleton'
-import { downloadFile } from '../utils/downloadFile'
-import { Pagination } from './ui/pagination'
-import type { FileData } from '../@types/file-data'
-
-interface FileListType {
+interface FileListProps {
 	files: FileData[]
 	loading: boolean
 	limit?: number
+	page: number
+	setPage: (value: number) => void
 }
-export const FileList = ({ files, loading, limit = 12 }: FileListType) => {
-	const [page, setPage] = useState(1)
+
+export const FileList = ({
+	files,
+	loading,
+	limit = 12,
+	page,
+	setPage,
+}: FileListProps) => {
 	const totalPages = Math.ceil(files.length / limit)
 
 	const paginatedFiles = useMemo(() => {
 		const start = (page - 1) * limit
 		return files.slice(start, start + limit)
-	}, [files, page])
-
-	const handlePrev = () => setPage((p) => Math.max(p - 1, 1))
-	const handleNext = () => setPage((p) => Math.min(p + 1, totalPages))
-
-	useMemo(() => {
-		setPage(1)
-	}, [files])
+	}, [files, page, limit])
 
 	return (
 		<div>
-			{loading && (
-				<>
-					<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4'></div>
-				</>
-			)}
+			<p>Количество файлов: {files.length}</p>
 
-			{files.length > 0 && (
-				<>
-					<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4'>
-						{loading
-							? [...Array(8)].map((_, i) => (
-									<Skeleton
-										key={i}
-										className='h-96 w-[300px] mb-4 rounded-lg'
-									/>
-							  ))
-							: paginatedFiles.map((file, i) => (
-									<FileCard key={i} file={file} onDownload={downloadFile} />
-							  ))}
-					</div>
+			<FileGrid
+				files={paginatedFiles}
+				loading={loading}
+				onDownload={downloadFile}
+			/>
 
-					{/* ✅ Используем компонент пагинации */}
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onPrev={handlePrev}
-						onNext={handleNext}
-					/>
-				</>
+			{totalPages > 1 && (
+				<SmartPagination
+					page={page}
+					totalPages={totalPages}
+					onChange={setPage}
+				/>
 			)}
 		</div>
 	)

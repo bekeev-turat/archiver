@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { useClickOutside } from '../../hooks/use-click-outside'
-import { cn } from '../../utils/cn'
+import { cn } from '../../lab/utils'
 
 interface Props {
 	options: string[] | undefined

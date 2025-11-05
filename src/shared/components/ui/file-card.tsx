@@ -1,5 +1,5 @@
 import { FaDownload } from 'react-icons/fa'
-import type { FileData } from '../../@types/file-data'
+import type { FileData } from '../../store/zip/zip.types'
 import { Button } from './button'
 
 interface FileCardProps {
@@ -33,7 +33,11 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 			)}
 			<div className='flex gap-2'>
 				{file.type !== 'other' && (
-					<Button variant='outline' link={`/view/${file.id}`}>
+					<Button
+						className='w-full p-0'
+						variant='outline'
+						link={`/view/${file.id}`}
+					>
 						Просмотр
 					</Button>
 				)}

@@ -2,7 +2,7 @@ import { useShallow } from 'zustand/shallow'
 import { useFiltersStore } from '../../store/filters/filters.store'
 import type { FileStats } from '../../lab/file-analyzer'
 import { Skeleton } from '../ui/skeleton'
-import { cn } from '../../utils/cn'
+import { cn } from '../../lab/utils'
 import type { TypeFilter } from '../../@types/filter'
 
 interface Props {
