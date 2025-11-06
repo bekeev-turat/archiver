@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# Archiver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Archiver** — это веб-инструмент для безопасного просмотра содержимого ZIP-архивов прямо в браузере. Приложение позволяет быстро проверить, какие файлы находятся внутри архива, без необходимости его распаковывать и без загрузки на сервер.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Как это работает
 
-## React Compiler
+После выбора ZIP-файла, Archiver использует возможности браузера для его анализа. Файл **не загружается** на сервер и обрабатывается полностью на стороне пользователя.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Приложение извлекает структуру архива и отображает список файлов с такой информацией, как:
 
-## Expanding the ESLint configuration
+- Имя файла
+- Размер
+- Тип
+- Дополнительная метаинформация
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Это удобно для быстрого просмотра содержимого архивов.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Безопасность
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Archiver **не передаёт ваши данные в сеть**. Все действия выполняются локально с использованием JavaScript API (например, JSZip), что обеспечивает конфиденциальность содержимого архивов.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Это делает инструмент безопасным для работы даже с чувствительными файлами.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Зачем это нужно
+
+Иногда необходимо быстро узнать, что находится внутри ZIP-архива, без распаковки. Archiver позволяет сделать это за несколько секунд прямо в браузере — без установки дополнительного ПО.
+
+Просто загрузите файл и получите список всех его компонентов. Удобно, быстро и безопасно.
+
+---
+
+## Технологии
+
+- React + TypeScript
+- Компоненты UI (Card, CardContent, CardHeader, CardTitle)
+- JSZip для работы с архивами
+
+---
+
+## Использование
+
+1. Клонируйте репозиторий:
+
+   ```bash
+   git clone <URL вашего репозитория>
+   ```
+
+2. Установите зависимости:
+
+   ```bash
+   npm install
+   ```
+
+3. Запустите проект:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Откройте браузер и выберите ZIP-файл для просмотра.
+
+Или можете открыть сайт:
+[кликните здесь](https://enduring-aria-474909-n7.web.app)
+
+---
+
+## Лицензия
+
+MIT License
