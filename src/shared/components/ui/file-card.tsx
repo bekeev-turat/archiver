@@ -42,7 +42,7 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 					</Button>
 				)}
 				<Button
-					variant='primary'
+					variant='default'
 					onClick={() => onDownload(file.url, file.name)}
 					className='py-0'
 				>

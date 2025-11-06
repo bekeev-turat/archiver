@@ -1,4 +1,4 @@
-import type { FileType } from '../@types/file-data'
+import type { FileType } from "../store/zip/zip.types"
 
 export function detectFileType(fileName: string): FileType {
 	// картинки
