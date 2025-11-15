@@ -43,7 +43,8 @@ export const FileListAnalyzer: React.FC = () => {
 				variant='secondary'
 				onClick={clearFiles}
 				className={cn({
-					'opacity-50 pointer-events-none': loading || files.length === 0,
+					'opacity-50 pointer-events-none':
+						loading || files.length === 0 || true,
 				})}
 			>
 				Очистить

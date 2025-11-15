@@ -38,7 +38,7 @@ export const TypeFilterSelector = ({ stats, loading }: Props) => {
 		return (
 			<>
 				{[...Array(4)].map((_, i) => (
-					<Skeleton key={i} className='w-36 h-10' />
+					<Skeleton key={i} className='min-w-36 h-10' />
 				))}
 			</>
 		)

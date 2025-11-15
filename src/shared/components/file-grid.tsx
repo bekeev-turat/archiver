@@ -11,9 +11,9 @@ interface FileGridProps {
 export function FileGrid({ files, loading, onDownload }: FileGridProps) {
 	if (loading) {
 		return (
-			<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4'>
+			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full mt-4'>
 				{[...Array(8)].map((_, i) => (
-					<Skeleton key={i} className='h-96 w-[300px] mb-4 rounded-lg' />
+					<Skeleton key={i} className='h-96 w-full mb-4 rounded-lg' />
 				))}
 			</div>
 		)
