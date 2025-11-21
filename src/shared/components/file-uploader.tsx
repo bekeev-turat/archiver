@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
-import { SplinesIcon } from '../assets/icon/splines'
 import { useZipStore } from '../store/zip/zip.store'
 import { useFiltersStore } from '../store/filters/filters.store'
 import { useShallow } from 'zustand/shallow'
+import { AnimationLottie } from './ui/animation-lottie'
+import mainGraphic from '../../../public/main_graphic.json'
 
 export const FileUploader: React.FC = () => {
 	const navigate = useNavigate()
@@ -35,13 +36,13 @@ export const FileUploader: React.FC = () => {
 	}, [files])
 
 	return (
-		<div className='flex flex-col lg:flex-row justify-between items-center '>
-			<div className='flex flex-col items-center gap-5 lg:w-11/12'>
-				<h1 className='text-3xl font-bold text-center'>
+		<div className='flex justify-center lg:justify-between gap-0 md:gap-15 items-center my-20 lg:mb-0'>
+			<div className='flex flex-col items-center gap-5 w-[70%]'>
+				<h1 className='text-2xl lg:text-3xl font-bold text-center'>
 					Легкий просмотр ZIP-файлов
 				</h1>
 
-				<p className='text-xl text-center'>
+				<p className='text-lg mb-8 text-muted-foreground text-center'>
 					Привет! Я <span className='font-semibold'>Бекеев Турат</span>, и я
 					создаю удобные веб-инструменты. С этим сервисом вы можете мгновенно
 					открывать ZIP-архивы прямо в браузере, просматривать файлы и скачивать
@@ -58,8 +59,13 @@ export const FileUploader: React.FC = () => {
 					onChange={handleChange}
 				/>
 			</div>
+			<AnimationLottie
+				animationPath={mainGraphic}
+				className='hidden lg:block'
+				width={'60%'}
+			/>
 
-			<SplinesIcon className='w-full' />
+			{/* <SplinesIcon className='w-full' /> */}
 		</div>
 	)
 }
