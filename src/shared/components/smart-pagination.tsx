@@ -40,6 +40,7 @@ export function SmartPagination({
 					) : (
 						<PaginationItem key={`page-${p}`}>
 							<PaginationLink
+								href={'#top'}
 								isActive={p === page}
 								onClick={() => onChange(Number(p))}
 							>

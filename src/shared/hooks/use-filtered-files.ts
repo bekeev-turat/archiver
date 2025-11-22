@@ -47,6 +47,7 @@ export const useFilteredFiles = () => {
 	return {
 		files: filteredFiles,
 		stats,
+		type,
 		loading,
 		clearFiles,
 		page,

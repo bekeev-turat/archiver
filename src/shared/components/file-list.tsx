@@ -3,8 +3,10 @@ import { useMemo } from 'react'
 import { FileGrid } from './file-grid'
 import { downloadFile } from '@/shared/utils/downloadFile'
 import { SmartPagination } from './smart-pagination'
+import { FileTable } from './file-table'
 
 interface FileListProps {
+	type: string
 	files: FileData[]
 	loading: boolean
 	limit?: number
@@ -13,6 +15,7 @@ interface FileListProps {
 }
 
 export const FileList = ({
+	type,
 	files,
 	loading,
 	limit = 12,
@@ -26,15 +29,22 @@ export const FileList = ({
 		return files.slice(start, start + limit)
 	}, [files, page, limit])
 
+	console.log(type)
+
 	return (
-		<div>
+		<div className='animate-fadeUpSlow'>
 			<p>Количество файлов: {files.length}</p>
 
-			<FileGrid
-				files={paginatedFiles}
-				loading={loading}
-				onDownload={downloadFile}
-			/>
+			{type !== 'image' ? (
+				<FileTable files={paginatedFiles} onDownload={downloadFile} />
+			) : (
+				<FileGrid
+					type={type}
+					files={paginatedFiles}
+					loading={loading}
+					onDownload={downloadFile}
+				/>
+			)}
 
 			{totalPages > 1 && (
 				<SmartPagination

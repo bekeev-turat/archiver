@@ -1,9 +1,11 @@
 import { useShallow } from 'zustand/shallow'
 import { useFiltersStore } from '../../store/filters/filters.store'
 import { Skeleton } from '../ui/skeleton'
-import { cn } from '../../lab/utils'
 import type { FileStats } from '@/shared/store/analyzer/file-analyzer.type'
 import type { TypeFilter } from '@/shared/store/filters/filters.types'
+import { ButtonGroup } from '../ui/button-group'
+import { Button } from '../ui/button'
+import { cn } from '@/shared/lab/utils'
 
 interface Props {
 	stats: FileStats
@@ -46,23 +48,30 @@ export const TypeFilterSelector = ({ stats, loading }: Props) => {
 
 	return (
 		<>
-			{fileTypes.map((type) => {
-				if (!type.hasType) return null
-				return (
-					<span
-						key={type.label}
-						onClick={() => setTypeFilter(type.value as TypeFilter)}
-						className={cn(
-							'cursor-pointer px-4 py-2 rounded-md transition-colors text-base',
-							typeFilter === type.value
-								? 'bg-gray-700 text-white'
-								: 'bg-gray-200 text-black hover:bg-gray-100',
-						)}
-					>
-						{type.label}
-					</span>
-				)
-			})}
+			<ButtonGroup className='animate-fadeIn'>
+				{fileTypes.map((type) => {
+					if (!type.hasType) return null
+					return (
+						<Button
+							variant={'outline'}
+							key={type.label}
+							onClick={() => setTypeFilter(type.value as TypeFilter)}
+							className={cn(
+								typeFilter === type.value &&'bg-secondary text-secondary-foreground'
+							)}
+						>
+							{type.label}
+						</Button>
+					)
+				})}
+			</ButtonGroup>
 		</>
 	)
 }
+
+// className={cn(
+// 	'cursor-pointer px-4 py-2 rounded-md transition-colors text-base animate-fadeIn',
+// 	typeFilter === type.value
+// 		? 'bg-gray-700 text-white'
+// 		: 'bg-gray-200 text-black hover:bg-gray-100',
+// )}

@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 
 export function About() {
 	return (
-		<section className='max-w-3xl mx-auto px-4 py-12 text-center'>
-			<h1 className='text-3xl lg:text-4xl font-bold mb-6'>О проекте Archiver</h1>
+		<section className='max-w-3xl mx-auto px-4 py-12 text-center animate-fadeIn'>
+			<h1 className='text-3xl lg:text-4xl font-bold mb-6'>
+				О проекте Archiver
+			</h1>
 
 			<p className='text-lg mb-8 text-muted-foreground'>
 				Archiver — это веб-инструмент, который позволяет безопасно просматривать

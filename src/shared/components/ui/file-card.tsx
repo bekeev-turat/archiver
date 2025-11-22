@@ -9,7 +9,7 @@ interface FileCardProps {
 
 export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 	return (
-		<div className='p-1 border rounded-lg shadow-sm flex flex-col justify-between gap-2 overflow-hidden'>
+		<div className='p-1 border rounded-lg shadow-sm flex flex-col justify-between gap-2 overflow-hidden animate-fadeUpSlow'>
 			<div className='flex flex-col gap-2'>
 				<p className='text-lx text-wrap w-full font-semibold'>
 					Имя файла:{' '}
@@ -17,7 +17,7 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 				</p>
 
 				{file.suspiciousReasons?.length > 0 && (
-					<p className='text-[#e53835]'>
+					<p className='text-error'>
 						Опасность: {file.suspiciousReasons.join(', ')}
 					</p>
 				)}

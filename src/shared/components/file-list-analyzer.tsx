@@ -10,6 +10,7 @@ import { FileFilter } from './filters'
 export const FileListAnalyzer: React.FC = () => {
 	const {
 		files,
+		type,
 		loading,
 		clearFiles,
 		stats,
@@ -22,7 +23,7 @@ export const FileListAnalyzer: React.FC = () => {
 	} = useFilteredFiles()
 
 	return (
-		<div className='mb-10'>
+		<div className='mb-10 animate-fadeIn' id='top'>
 			<FileFilter
 				suspicious={suspicious}
 				setSuspicious={setSuspicious}
@@ -43,8 +44,7 @@ export const FileListAnalyzer: React.FC = () => {
 				variant='secondary'
 				onClick={clearFiles}
 				className={cn({
-					'opacity-50 pointer-events-none':
-						loading || files.length === 0 || true,
+					'opacity-50 pointer-events-none': loading || files.length === 0,
 				})}
 			>
 				Очистить
@@ -53,6 +53,7 @@ export const FileListAnalyzer: React.FC = () => {
 			{files.length > 0 && (
 				<>
 					<FileList
+						type={type}
 						page={page}
 						setPage={setPage}
 						files={files}
