@@ -68,10 +68,3 @@ export const TypeFilterSelector = ({ stats, loading }: Props) => {
 		</>
 	)
 }
-
-// className={cn(
-// 	'cursor-pointer px-4 py-2 rounded-md transition-colors text-base animate-fadeIn',
-// 	typeFilter === type.value
-// 		? 'bg-gray-700 text-white'
-// 		: 'bg-gray-200 text-black hover:bg-gray-100',
-// )}

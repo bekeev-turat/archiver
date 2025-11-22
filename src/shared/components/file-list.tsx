@@ -39,7 +39,6 @@ export const FileList = ({
 				<FileTable files={paginatedFiles} onDownload={downloadFile} />
 			) : (
 				<FileGrid
-					type={type}
 					files={paginatedFiles}
 					loading={loading}
 					onDownload={downloadFile}

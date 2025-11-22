@@ -3,13 +3,12 @@ import { Skeleton } from './ui/skeleton'
 import { FileCard } from './ui/file-card'
 
 interface FileGridProps {
-	type: string
 	files: FileData[]
 	loading: boolean
 	onDownload: (url: string, name: string) => void
 }
 
-export function FileGrid({ type, files, loading, onDownload }: FileGridProps) {
+export function FileGrid({ files, loading, onDownload }: FileGridProps) {
 	if (loading) {
 		return (
 			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full mt-4'>
@@ -19,10 +18,6 @@ export function FileGrid({ type, files, loading, onDownload }: FileGridProps) {
 			</div>
 		)
 	}
-	if (type === 'image') {
-		
-	}
-
 	return (
 		<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full mt-4 animate-fadeUpSlow'>
 			{files.map((file, i) => (
