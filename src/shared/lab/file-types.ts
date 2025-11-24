@@ -2,7 +2,7 @@ import type { FileType } from "../store/zip/zip.types"
 
 export function detectFileType(fileName: string): FileType {
 	// картинки
-	if (/\.(png|jpe?g|gif|webp)$/i.test(fileName)) return 'image'
+	if (/\.(png|jpe?g|gif|webp|svg)$/i.test(fileName)) return 'image'
 
 	// видео
 	if (/\.(mp4|webm|ogg)$/i.test(fileName)) return 'video'

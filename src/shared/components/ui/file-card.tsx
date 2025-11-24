@@ -1,4 +1,5 @@
 import { FaDownload } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import type { FileData } from '../../store/zip/zip.types'
 import { Button } from './button'
 
@@ -13,7 +14,13 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 			<div className='flex flex-col gap-2'>
 				<p className='text-lx text-wrap w-full font-semibold'>
 					Имя файла:{' '}
-					{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
+					<Link
+						to={`/view/${file.id}`}
+						className='text-primary hover:underline cursor-pointer'
+						title={file.name}
+					>
+						{file.name.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
+					</Link>
 				</p>
 
 				{file.suspiciousReasons?.length > 0 && (
@@ -26,21 +33,18 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 				<p>Размер: {(file.size / 1024).toFixed(2)} кб</p>
 			</div>
 			{file.type === 'image' && (
-				<img src={file.url} alt={file.name} className='w-full rounded-lg' />
+				<Link
+					to={`/view/${file.id}`}
+					className='text-primary hover:underline cursor-pointer'
+					title={file.name}
+				>
+					<img src={file.url} alt={file.name} className='w-full rounded-lg' />
+				</Link>
 			)}
 			{file.type === 'video' && (
 				<video src={file.url} controls className='w-full rounded-lg' />
 			)}
 			<div className='flex gap-2'>
-				{file.type !== 'other' && (
-					<Button
-						className='w-full p-0'
-						variant='outline'
-						link={`/view/${file.id}`}
-					>
-						Просмотр
-					</Button>
-				)}
 				<Button
 					variant='default'
 					onClick={() => onDownload(file.url, file.name)}

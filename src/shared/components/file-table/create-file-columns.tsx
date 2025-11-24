@@ -1,6 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import { FileActionsCell } from './file-actions-cell'
 import type { FileData } from '@/shared/store/zip/zip.types'
+import { Link } from 'react-router-dom'
 
 export const createFileColumns = (
 	onDownload: (url: string, name: string) => void,
@@ -8,9 +9,19 @@ export const createFileColumns = (
 	{
 		accessorKey: 'name',
 		header: 'Имя файла',
-		cell: ({ getValue }) => {
+		cell: ({ getValue, row }) => {
 			const value = getValue<string>()
-			return value.length > 30 ? value.slice(0, 30) + '...' : value
+			const displayValue =
+				value.length > 30 ? value.slice(0, 30) + '...' : value
+			return (
+				<Link
+					to={`/view/${row.original.id}`}
+					className='text-primary hover:underline cursor-pointer font-medium'
+					title={value}
+				>
+					{displayValue}
+				</Link>
+			)
 		},
 	},
 	{
@@ -37,8 +48,6 @@ export const createFileColumns = (
 			<FileActionsCell
 				url={row.original.url}
 				name={row.original.name}
-				type={row.original.type}
-				id={'' + row.original.id}
 				onDownload={onDownload}
 			/>
 		),

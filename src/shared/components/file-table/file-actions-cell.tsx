@@ -4,16 +4,12 @@ import { Button } from '../ui/button'
 interface FileActionsCellProps {
 	url: string
 	name: string
-	type: string
-	id: string
 	onDownload: (url: string, name: string) => void
 }
 
 export const FileActionsCell: React.FC<FileActionsCellProps> = ({
 	url,
 	name,
-	type,
-	id,
 	onDownload,
 }) => {
 	return (
@@ -25,12 +21,6 @@ export const FileActionsCell: React.FC<FileActionsCellProps> = ({
 			>
 				<FaDownload />
 			</Button>
-
-			{type !== 'other' && (
-				<Button variant='outline' link={`/view/${id}`}>
-					Просмотр
-				</Button>
-			)}
 		</div>
 	)
 }

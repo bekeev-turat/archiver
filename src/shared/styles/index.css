@@ -193,3 +193,42 @@ html {
 .animate-fadeUpSlow {
 	animation: fadeUp 1.4s ease forwards;
 }
+
+/* Стили для подсветки синтаксиса */
+.syntax-highlighter code .keyword {
+	color: #d73a49;
+	font-weight: 600;
+}
+
+.syntax-highlighter code .string {
+	color: #032f62;
+}
+
+.syntax-highlighter code .number {
+	color: #005cc5;
+}
+
+.syntax-highlighter code .comment {
+	color: #6a737d;
+	font-style: italic;
+}
+
+.syntax-highlighter code .tag {
+	color: #22863a;
+}
+
+.syntax-highlighter code .selector {
+	color: #6f42c1;
+}
+
+.syntax-highlighter code .property {
+	color: #005cc5;
+}
+
+.syntax-highlighter code .value {
+	color: #032f62;
+}
+
+.syntax-highlighter code .key {
+	color: #d73a49;
+}
