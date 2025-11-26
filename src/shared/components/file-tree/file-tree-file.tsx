@@ -6,24 +6,26 @@ import {
 	SidebarMenuSubItem,
 	SidebarMenuSubButton,
 } from '../ui/sidebar'
-import type { TreeNode } from '@/shared/lab/file-tree'
+import type { FileNode } from '@/shared/lab/file-tree'
 
 interface FileTreeFileProps {
-	node: TreeNode
+	node: FileNode
 	level: number
 	isActive: boolean
 }
+
 export const FileTreeFile: React.FC<FileTreeFileProps> = ({
 	node,
 	level,
 	isActive,
 }) => {
 	const fileLink = (
-		<Link to={`/view/${node.fileData?.id}`}>
+		<Link to={`/view/${node.fileData.id}`}>
 			<File className='size-4 shrink-0' />
 			<span className='truncate'>{node.name}</span>
 		</Link>
 	)
+
 	if (level === 0) {
 		return (
 			<SidebarMenuItem>
@@ -38,6 +40,7 @@ export const FileTreeFile: React.FC<FileTreeFileProps> = ({
 			</SidebarMenuItem>
 		)
 	}
+
 	return (
 		<SidebarMenuSubItem>
 			<SidebarMenuSubButton asChild isActive={isActive} size='sm'>

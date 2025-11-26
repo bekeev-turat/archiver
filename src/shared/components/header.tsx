@@ -24,7 +24,8 @@ export const Header = () => {
 						className='flex gap-2 items-center text-sm text-primary animate-fadeIn'
 						to='/archiver'
 					>
-						<FaFileArchive className='size-4' /> <span className='hidden sm:block'>Архиватор</span>
+						<FaFileArchive className='size-4' />{' '}
+						<span className='hidden sm:block'>Архиватор</span>
 					</Link>
 				)}
 
@@ -34,7 +35,8 @@ export const Header = () => {
 						className='flex gap-2 items-center text-sm text-primary animate-fadeIn'
 						to='/about'
 					>
-						<Info className='size-4' /> <span className='hidden sm:block'>О приложении</span>
+						<Info className='size-4' />{' '}
+						<span className='hidden sm:block'>О приложении</span>
 					</Link>
 				)}
 				<SidebarTrigger className='text-primary' />

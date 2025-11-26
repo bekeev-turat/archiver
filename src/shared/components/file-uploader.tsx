@@ -39,7 +39,9 @@ export const FileUploader: React.FC = () => {
 				width={'60%'}
 			/>
 
-			{files.length > 0 && <ScrollIndicator className='left-1/2' />}
+			{files.length > 0 && (
+				<ScrollIndicator className='left-1/2 fixed bottom-5 z-10' />
+			)}
 		</div>
 	)
 }

@@ -1,17 +1,21 @@
-import type { TreeNode } from "@/shared/lab/file-tree"
-import { SidebarMenuItem } from "../ui/sidebar"
-import { SidebarMenuButton, SidebarMenuSubItem, SidebarMenuSubButton } from "../ui/sidebar"
-import { ChevronRight } from "lucide-react"
-import { FolderOpen, Folder } from "lucide-react"
-import { cn } from "@/shared/lab/utils"
+import type { FolderNode } from '@/shared/lab/file-tree'
+import {
+	SidebarMenuItem,
+	SidebarMenuButton,
+	SidebarMenuSubItem,
+	SidebarMenuSubButton,
+} from '../ui/sidebar'
+import { ChevronRight, FolderOpen, Folder } from 'lucide-react'
+import { cn } from '@/shared/lab/utils'
 
 interface FileTreeFolderProps {
-	node: TreeNode
+	node: FolderNode
 	level: number
 	isOpen: boolean
 	onToggle: (e: React.MouseEvent) => void
 	childrenNodes: React.ReactNode
 }
+
 export const FileTreeFolder: React.FC<FileTreeFolderProps> = ({
 	node,
 	level,
@@ -20,6 +24,7 @@ export const FileTreeFolder: React.FC<FileTreeFolderProps> = ({
 	childrenNodes,
 }) => {
 	const FolderIcon = isOpen ? FolderOpen : Folder
+
 	if (level === 0) {
 		return (
 			<>
@@ -39,6 +44,7 @@ export const FileTreeFolder: React.FC<FileTreeFolderProps> = ({
 			</>
 		)
 	}
+
 	return (
 		<>
 			<SidebarMenuSubItem>

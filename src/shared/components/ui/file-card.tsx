@@ -23,13 +23,6 @@ export const FileCard: React.FC<FileCardProps> = ({ file, onDownload }) => {
 					</Link>
 				</p>
 
-				{file.suspiciousReasons?.length > 0 && (
-					<p className='text-error'>
-						Опасность: {file.suspiciousReasons.join(', ')}
-					</p>
-				)}
-
-				<p>Тип: {file.type}</p>
 				<p>Размер: {(file.size / 1024).toFixed(2)} кб</p>
 			</div>
 			{file.type === 'image' && (
